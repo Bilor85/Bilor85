@@ -1,0 +1,64 @@
+{
+    "model": {
+        "n_window_timesteps": 20,
+        "n_assets": 355,
+        "input_layer": {
+            "dropout": 0.2, 
+            "out_dim": 128, 
+            "emb_layers_sizes": [], 
+            "t2v_dim": 128, 
+            "tau_v_dim": 1, 
+            "t2v_mode": "concat"
+        },
+        "encoder": {
+            "hidden_dim": 256,
+            "n_layer": 4,
+            "n_head": 4,
+            "dropout": 0.1
+        },
+        "decoder": {
+            "hidden_dim": 256,
+            "n_layer": 4,
+            "n_head": 4,
+            "dropout": 0.1
+        }
+    },
+
+    "optimizer": {
+        "batch_size": 2,
+        "betas": [0.9, 0.98],
+        "eps": 0.000000001,
+        "weight_decay": 0.0,
+        "lr": 0.000125,
+        "fixed_lr": true, 
+        "grad_clip_thresh": 10.0,
+        "grad_acc_step": 1,
+        "warm_up_step": 4000,
+        "anneal_steps": [300000, 400000, 500000],
+        "anneal_rate": 0.3
+    },
+
+    "training": {
+        "train_data": "./data/train.csv",
+        "val_data": "./data/test.csv",
+        "train_length": 3525,
+        "paths":{
+            "log_path": "./experiments/logs",
+            "checkpoint_path": "./experiments/checkpoints"
+        },
+        "steps": {
+            "total_step": 10000,
+            "log_step": 100,
+            "save_step": 5000,
+            "val_step": 1000
+        },
+        "loss": {
+            "transaction_cost_rate": 0.0002
+        },
+        "metrics":{
+            "roll_window": 252,
+            "eps": 0.00001,
+            "risk_free": 0.012
+        }
+    }
+}
